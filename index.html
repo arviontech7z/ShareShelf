@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Share projects, articles, and learning modules.">
+    <title>ShareShelf — Community Library</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="#" aria-label="ShareShelf home">
+            <span class="brand-icon" aria-hidden="true">S</span>
+            <span>ShareShelf</span>
+        </a>
+        <a class="header-link" href="#library">Browse library <span aria-hidden="true">↓</span></a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <p class="eyebrow">A COMMUNITY LIBRARY</p>
+            <h1>Good work deserves<br>to be <span>shared.</span></h1>
+            <p class="hero-copy">Save and discover projects, articles, and learning modules from people like you.</p>
+            <a class="hero-link" href="#add-file">Share your first file <span aria-hidden="true">↘</span></a>
+            <div class="hero-decoration" aria-hidden="true">
+                <span class="decoration-card card-one">✳</span>
+                <span class="decoration-card card-two">↗</span>
+                <span class="decoration-card card-three">Aa</span>
+            </div>
+        </section>
+
+        <div class="content-grid">
+            <section class="upload-panel" id="add-file" aria-labelledby="upload-heading">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">CONTRIBUTE</p>
+                        <h2 id="upload-heading">Add a file</h2>
+                    </div>
+                    <span class="step-number">01</span>
+                </div>
+
+                <form id="upload-form">
+                    <div class="field">
+                        <label for="uploader">Your name</label>
+                        <input id="uploader" name="uploader" type="text" maxlength="14" placeholder="How should we credit you?" autocomplete="name" aria-describedby="uploader-character-count" required>
+                        <span id="uploader-character-count" class="field-hint">0 / 14 characters (maximum)</span>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label id="category-label">Category</label>
+                            <select id="category" name="category" class="visually-hidden" tabindex="-1" aria-hidden="true" required>
+                                <option value="Project">Project</option>
+                                <option value="Article">Article</option>
+                                <option value="Learning module">Learning module</option>
+                            </select>
+                            <div id="category-picker" class="category-picker">
+                                <button id="category-trigger" class="category-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-options" aria-labelledby="category-label category-value">
+                                    <span id="category-value">Project</span>
+                                    <span class="category-chevron" aria-hidden="true"></span>
+                                </button>
+                                <div id="category-options" class="category-options" role="listbox" aria-labelledby="category-label" hidden>
+                                    <div class="category-option" role="option" tabindex="-1" data-value="Project" aria-selected="true">Project</div>
+                                    <div class="category-option" role="option" tabindex="-1" data-value="Article" aria-selected="false">Article</div>
+                                    <div class="category-option" role="option" tabindex="-1" data-value="Learning module" aria-selected="false">Learning module</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="title">Title</label>
+                            <input id="title" name="title" type="text" maxlength="20" placeholder="Name your file" aria-describedby="title-character-limit" required>
+                            <span id="title-character-limit" class="field-hint">Maximum 20 characters.</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="file">Choose a file</label>
+                        <input id="file" name="file" type="file" required>
+                        <span class="field-hint">Any file type is okay for this browser-only demo.</span>
+                    </div>
+
+                    <button class="submit-button" type="submit">Add to library <span aria-hidden="true">↗</span></button>
+                    <div id="upload-progress" class="upload-progress" hidden>
+                        <div class="progress-label">
+                            <span id="progress-message">Preparing file locally…</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <progress id="file-progress" max="100" value="0" aria-label="Local file preparation progress"></progress>
+                    </div>
+                    <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+
+            <section class="library-panel" id="library" aria-labelledby="library-heading">
+                <div class="library-heading">
+                    <div>
+                        <p class="eyebrow">FIND SOMETHING GOOD</p>
+                        <h2 id="library-heading">The library</h2>
+                    </div>
+                    <span id="item-count" class="item-count">0 files</span>
+                </div>
+
+                <div class="search-field" role="search">
+                    <label class="visually-hidden" for="library-search">Search the library</label>
+                    <span class="search-icon" aria-hidden="true">⌕</span>
+                    <input id="library-search" type="search" placeholder="Search files, people, or categories" autocomplete="off">
+                </div>
+                <div class="library-filters" role="group" aria-label="Filter library by category">
+                    <button class="library-filter is-active" type="button" data-category="all" aria-pressed="true">All</button>
+                    <button class="library-filter" type="button" data-category="Project" aria-pressed="false">Projects</button>
+                    <button class="library-filter" type="button" data-category="Article" aria-pressed="false">Articles</button>
+                    <button class="library-filter" type="button" data-category="Learning module" aria-pressed="false">Learning modules</button>
+                </div>
+                <div id="library-content">
+                    <div class="empty-state">
+                        <span class="empty-icon" aria-hidden="true">↗</span>
+                        <h3>It’s a little quiet in here.</h3>
+                        <p>Add a file to start your library. Items will be grouped in folders by uploader.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <dialog id="file-preview-dialog" class="file-preview-dialog" aria-labelledby="preview-title">
+        <div class="preview-dialog-header">
+            <div>
+                <p class="eyebrow">FILE PREVIEW</p>
+                <h2 id="preview-title"></h2>
+            </div>
+            <button id="close-preview" class="close-preview" type="button" aria-label="Close preview">×</button>
+        </div>
+        <div id="preview-content" class="preview-content"></div>
+        <div class="preview-dialog-footer">
+            <span id="preview-file-name" class="preview-file-name"></span>
+            <a id="preview-download" class="preview-download" href="#" download>Download file</a>
+        </div>
+    </dialog>
+
+    <footer class="site-footer">
+        <a class="brand footer-brand" href="#">
+            <span class="brand-icon" aria-hidden="true">S</span>
+            <span>ShareShelf</span>
+        </a>
+        <p>A little more sharing, a lot for more learning.</p>
+    </footer>
+</body>
+</html>
